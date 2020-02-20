@@ -38,10 +38,39 @@ Optional: define a helper function to avoid code duplication inside
 print_words() and print_top().
 
 """
-
 import sys
 
-# +++your code here+++
+
+def helper(filename):
+    wordDict = {}
+    with open(filename, 'r') as file:
+        for line in file:
+            wordList = line.lower().split()
+            for word in wordList: 
+                if word in wordDict: 
+                    wordDict[word] += 1
+                else:
+                    wordDict[word] = 1
+    return wordDict
+
+def print_words(filename):
+    wordCount = helper(filename)
+    for item in wordCount:
+        print(item, wordCount[item])
+
+def wordCounter(tup):
+    count = tup[1]
+    return count
+
+def print_top(filename):
+    wordCount = helper(filename)
+    topWords = sorted(wordCount.items(), key = wordCounter, reverse = True)
+    for topWord in topWords[:20]:
+        word = topWord[0]
+        count = topWord[1]
+        print(word, count)
+
+
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
@@ -71,3 +100,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
+# this assessment took to freaking long, 5 points yay
